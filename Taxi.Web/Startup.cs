@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Taxi.Web.Data;
 
 namespace Taxi.Web
 {
@@ -31,6 +28,11 @@ namespace Taxi.Web
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            //Database Injection
+            services.AddDbContext<DataContext>(cfg =>
+            {   // En este caso es MsSql server podría ser mongoDb, MySql, etc
+                cfg.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
+            });
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
