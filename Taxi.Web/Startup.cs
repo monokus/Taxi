@@ -34,6 +34,9 @@ namespace Taxi.Web
                 cfg.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
             });
 
+            // Seeder Injection
+            services.AddTransient<SeedDb>();
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
