@@ -29,7 +29,8 @@ namespace Taxi.Web.Controllers
 
         [HttpPost]
         public async Task<IActionResult> Login(LoginViewModel model)
-        {
+        {            
+
             if (ModelState.IsValid)
             {
                 var result = await _userHelper.LoginAsync(model);
@@ -46,6 +47,7 @@ namespace Taxi.Web.Controllers
             }
 
             ModelState.AddModelError(string.Empty, "Invalid Login Attempt..!");
+
             return View(model);
         }
         public async Task<IActionResult> Logout()
