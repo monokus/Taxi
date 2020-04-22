@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Taxi.Web.Data.Entities;
+using Taxi.Web.Models;
 
 namespace Taxi.Web.Helpers
 {
@@ -14,5 +15,7 @@ namespace Taxi.Web.Helpers
         Task CheckRoleAsync(string rolename);
         Task AddUserToRoleAsync(UserEntity user, string rolename);
         Task<bool> IsUserInRoleAsync(UserEntity user, string rolename);
+        Task<SignInResult> LoginAsync(LoginViewModel model);
+        Task LogoutAsync();
     }
 }
