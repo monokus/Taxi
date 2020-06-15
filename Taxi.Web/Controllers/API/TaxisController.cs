@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Taxi.Web.Data;
+using Taxi.Web.Data.Entities;
 using Taxi.Web.Helpers;
 
 namespace Taxi.Web.Controllers.API
@@ -41,9 +42,11 @@ namespace Taxi.Web.Controllers.API
             
             if (taxiEntity == null)
             {
-                return NotFound();
+                //return NotFound();
+                taxiEntity = new TaxiEntity { Plaque = plaque.ToUpper() };
+                _context.Taxis.Add(taxiEntity);
+                await _context.SaveChangesAsync();
             }
-
             return Ok(_converterHelper.ToTaxiResponse(taxiEntity));
         }       
         private bool TaxiEntityExists(int id)
